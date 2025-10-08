@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizador Interactivo de Datos (Flask & Chart.js)</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #controls { margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; }
+        #chart-container { width: 80%; margin: 20px auto; }
+        #upload-form button { padding: 10px; cursor: pointer; }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Carga y Visualización de Datos CSV</h1>
+    
+    <div id="controls">
+        <h2>Paso 1: Cargar Datos</h2>
+        <form id="upload-form">
+            <input type="file" id="data-file" accept=".csv" required>
+            <button type="submit">Cargar y Analizar</button>
+        </form>
+
+        <hr>
+
+        <div id="visualization-settings" style="display:none;">
+            <h2>Paso 2: Configurar Gráfico</h2>
+            <p>Se cargaron <span id="row-count">0</span> filas y <span id="col-count">0</span> columnas.</p>
+            
+            <label for="chart-type">Tipo de Gráfico:</label>
+            <select id="chart-type">
+                <option value="bar">Barras</option>
+                <option value="line">Líneas</option>
+                <option value="scatter">Dispersión</option>
+                <option value="pie">Circular (Pastel)</option>
+            </select>
+
+            <label for="x-axis">Eje X (Categoría):</label>
+            <select id="x-axis"></select>
+
+            <label for="y-axis">Eje Y (Valor/Conteo):</label>
+            <select id="y-axis"></select>
+
+            <button id="draw-chart-btn">Dibujar Gráfico</button>
+        </div>
+    </div>
+
+    <div id="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
